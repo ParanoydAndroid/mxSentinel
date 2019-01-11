@@ -1,5 +1,6 @@
 from scapy.all import *
 from scapy.layers.inet import *
+from scapy.packet import *
 
 # Setup packet parameters
 target = "10.12.1.4"
@@ -19,7 +20,7 @@ print "Beginning packet crafting ...\n"
 for i in range(10):
     source_port = random.randint(1024, 65535)
     temp_packet = packet_craft(source_port)
-    packets.append(packet)
+    packets.append(temp_packet)
 
 print "done crafting packets!\n"
 print "\nBeginning flood ...\n"

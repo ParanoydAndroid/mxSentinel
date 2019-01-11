@@ -1,6 +1,6 @@
 from scapy.all import *
 from scapy.layers.inet import *
-from scapy.packet import *
+
 
 # Setup packet parameters
 target = "10.12.1.4"
